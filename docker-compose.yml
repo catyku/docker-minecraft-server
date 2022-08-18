@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  mc:
+    #image: itzg/minecraft-bedrock-server
+    build: server
+    ports:
+      - 19132:19132/udp
+    #platform: "linux/arm/v7"
+    environment:
+      EULA: "TRUE"
+      GAMEMODE: survival
+      DIFFICULTY: normal
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    volumes:
+      # attach a directory relative to the directory containing this compose file
+      - ./minecraft-data:/bedrock-server/worlds
+      - ./server/whitelist.json:/bedrock-server/whitelist.json
+      - ./server/server.properties:/bedrock-server/server.properties
+
